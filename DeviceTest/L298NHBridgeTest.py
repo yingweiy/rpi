@@ -35,8 +35,8 @@ def printscreen():
 	print("q: stops the motors")
 	print("x: exit")
 	print("========== Speed Control ==========")
-	print "left motor:  ", speedleft
-	print "right motor: ", speedright
+	print("left motor:  ", speedleft)
+	print("right motor: ", speedright)
 
 while True:
     # Keyboard character retrieval method. This method will save
