@@ -1,8 +1,3 @@
-# Autor:	Ingmar Stapel
-# Date:		20141229
-# Version:	1.0
-# Homepage:	www.raspberry-pi-car.com
-
 import sys, tty, termios, os
 import L298NHBridge as HBridge
 
