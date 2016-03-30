@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# coding: latin-1
-
 # This module is designed to control two motors with a L298N H-Bridge
 
 # Use this module by creating an instance of the class. To do so call the Init function, then command as desired, e.g.

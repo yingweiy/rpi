@@ -3,7 +3,7 @@ import RPi.GPIO as GPIO
 import time
 
 pin_pan=18
-pin_tilt=25
+pin_tilt=19
 pan_range=[80, 100]
 tilt_range=[0,80]
 
