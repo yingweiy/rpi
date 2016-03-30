@@ -1,0 +1,2 @@
+sudo apt-get install ffmpeg libavcodec-dev libavcodec53 libavformat53 libavformat-dev libxine1-ffmpeg libxine-dev
+libxine1-bin libunicap2 libunicap2-dev swig libv4l-0 libv4l-dev python-numpy libgtk2.0-dev
