@@ -2,6 +2,44 @@ import io
 import socket
 import struct
 from PIL import Image
+import cv2
+import numpy as np
+
+# Create the haar cascade
+cascPath = "./haarcascade_frontalface_alt.xml"
+faceCascade = cv2.CascadeClassifier(cascPath)
+video_capture = cv2.VideoCapture(0)
+
+
+def ProcessImage(image):
+        open_cv_image = np.array(image) 
+        print open_cv_image.shape
+        # Convert RGB to BGR    
+        open_cv_image = open_cv_image[:, :, ::-1].copy() 
+        
+
+        gray = cv2.cvtColor(open_cv_image, cv2.COLOR_BGR2GRAY)
+        faces = faceCascade.detectMultiScale(
+            gray,
+            scaleFactor=1.1,
+            minNeighbors=5,
+            minSize=(30, 30),
+            flags=cv2.cv.CV_HAAR_SCALE_IMAGE
+        )
+
+        # Draw a rectangle around the faces
+        for (x, y, w, h) in faces:
+            cv2.rectangle(open_cv_image, (x, y), (x+w, y+h), (0, 255, 0), 2)
+
+        print(len(faces),' faces detected.')
+
+        # Display the resulting frame
+        cv2.imshow('Video', open_cv_image)
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            return 1
+
+        return 0
+
 
 # Start a socket listening for connections on 0.0.0.0:8000 (0.0.0.0 means
 # all interfaces)
@@ -27,8 +65,14 @@ try:
         image_stream.seek(0)
         image = Image.open(image_stream)
         print('Image is %dx%d' % image.size)
+                
+        if ProcessImage(image)==1:
+            break
+        
         image.verify()
         print('Image is verified')
+        
 finally:
     connection.close()
     server_socket.close()
+    cv2.destroyAllWindows()
