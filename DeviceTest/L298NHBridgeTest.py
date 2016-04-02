@@ -38,54 +38,37 @@ def printscreen():
 	print("left motor:  ", speedleft)
 	print("right motor: ", speedright)
 
+def drive(delta_left, delta_right):
+	# synchronize after a turning the motor speed
+	if speedleft != speedright:
+		speedleft = speedright
+
+	# accelerate the RaPi car
+	speedleft = speedleft + delta_left
+	speedright = speedright + delta_right
+
+	if speedleft > 1:
+		speedleft = 1
+	if speedright > 1:
+		speedright = 1
+
+	HBridge.setMotorLeft(speedleft)
+	HBridge.setMotorRight(speedright)
+	printscreen()
+
 while True:
     # Keyboard character retrieval method. This method will save
     # the pressed key into the variable char
 	char = getch()
 
 
-	
 	# The car will drive forward when the "w" key is pressed
 	if(char == "w"):
-	
-		# synchronize after a turning the motor speed
-			
-		if speedleft != speedright:
-			speedleft = speedright
-
-		# accelerate the RaPi car
-		speedleft = speedleft + 0.1
-		speedright = speedright + 0.1
-
-		if speedleft > 1:
-			speedleft = 1
-		if speedright > 1:
-			speedright = 1
-		
-		HBridge.setMotorLeft(speedleft)
-		HBridge.setMotorRight(speedright)
-		printscreen()
+		drive(0.1, 0.1)
 
     # The car will reverse when the "s" key is pressed
 	if(char == "s"):
-	
-		# synchronize after a turning the motor speed
-			
-		if speedleft != speedright:
-			speedleft = speedright
-
-		# slow down the RaPi car
-		speedleft = speedleft - 0.1
-		speedright = speedright - 0.1
-
-		if speedleft < -1:
-			speedleft = -1
-		if speedright < -1:
-			speedright = -1
-		
-		HBridge.setMotorLeft(speedleft)
-		HBridge.setMotorRight(speedright)
-		printscreen()
+		drive(-0.1, -0.1)
 
     # Stop the motors
 	if(char == "q"):
@@ -97,36 +80,12 @@ while True:
 
     # The "d" key will toggle the steering right
 	if(char == "d"):		
-		#if speedright > speedleft:
-		speedright = speedright - 0.1
-		speedleft = speedleft + 0.1
-		
-		if speedright < -1:
-			speedright = -1
-		
-		if speedleft > 1:
-			speedleft = 1
-		
-		HBridge.setMotorLeft(speedleft)
-		HBridge.setMotorRight(speedright)
-		printscreen()
-		
+		drive(0.1, -0.1)
+
     # The "a" key will toggle the steering left
 	if(char == "a"):
-		#if speedleft > speedright:
-		speedleft = speedleft - 0.1
-		speedright = speedright + 0.1
-			
-		if speedleft < -1:
-			speedleft = -1
-		
-		if speedright > 1:
-			speedright = 1
-		
-		HBridge.setMotorLeft(speedleft)
-		HBridge.setMotorRight(speedright)
-		printscreen()
-		
+		drive(-0.1, 0.1)
+
 	# The "x" key will break the loop and exit the program
 	if(char == "x"):
 		HBridge.setMotorLeft(0)
