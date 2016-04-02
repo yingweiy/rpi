@@ -97,7 +97,7 @@ while True:
 		speed=1.0
 
 	# The "x" key will break the loop and exit the program
-	if(char == "x"):s
+	if(char == "x"):
 		stop()
 		HBridge.exit()
 		print("Program Ended")
