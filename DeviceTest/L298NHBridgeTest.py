@@ -50,12 +50,9 @@ while True:
 	
 		# synchronize after a turning the motor speed
 			
-		# if speedleft > speedright:
-			# speedleft = speedright
-		
-		# if speedright > speedleft:
-			# speedright = speedleft
-				
+		if speedleft != speedright:
+			speedleft = speedright
+
 		# accelerate the RaPi car
 		speedleft = speedleft + 0.1
 		speedright = speedright + 0.1
@@ -74,12 +71,9 @@ while True:
 	
 		# synchronize after a turning the motor speed
 			
-		# if speedleft > speedright:
-			# speedleft = speedright
-			
-		# if speedright > speedleft:
-			# speedright = speedleft
-			
+		if speedleft != speedright:
+			speedleft = speedright
+
 		# slow down the RaPi car
 		speedleft = speedleft - 0.1
 		speedright = speedright - 0.1
