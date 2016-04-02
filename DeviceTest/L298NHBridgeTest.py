@@ -39,6 +39,7 @@ def printscreen():
 	print("right motor: ", speedright)
 
 def drive(delta_left, delta_right):
+	global speedleft, speedright
 	# synchronize after a turning the motor speed
 	if speedleft != speedright:
 		speedleft = speedright
