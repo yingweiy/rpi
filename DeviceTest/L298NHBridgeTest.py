@@ -39,7 +39,7 @@ def printscreen():
 	print("left motor:  ", speedleft)
 	print("right motor: ", speedright)
 
-def turn(dir, speed=0.1):
+def turn(dir, speed=1.0):
 	drive(-dir*speed, dir*speed)
 
 def stop():
