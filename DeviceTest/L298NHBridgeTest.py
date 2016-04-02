@@ -39,8 +39,9 @@ def printscreen():
 	print("left motor:  ", speedleft)
 	print("right motor: ", speedright)
 
-def turn(dir, speed=1.0):
-	drive(-dir*speed, dir*speed)
+def turn(dir, speed=0.5):
+    HBridge.setMotorLeft(-dir*speed)
+    HBridge.setMotorRight(dir*speed)
 
 def stop():
 	HBridge.setMotorLeft(0)
