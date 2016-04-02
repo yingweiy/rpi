@@ -2,8 +2,7 @@ import sys, tty, termios, os
 import L298NHBridge as HBridge
 import time
 
-speedleft = 0
-speedright = 0
+speed = 0.5
 
 # Instructions for when the user has an interface
 print("w/s: direction")
@@ -36,34 +35,20 @@ def printscreen():
 	print("q: stops the motors")
 	print("x: exit")
 	print("========== Speed Control ==========")
-	print("left motor:  ", speedleft)
-	print("right motor: ", speedright)
+	print("speed:  ", speed)
 
-def turn(dir, speed=0.5):
-    HBridge.setMotorLeft(-dir*speed)
-    HBridge.setMotorRight(dir*speed)
+def turn(dir):
+    global speed
+    drive(-dir, dir)
 
 def stop():
 	HBridge.setMotorLeft(0)
 	HBridge.setMotorRight(0)
 
-def drive(delta_left, delta_right):
-	global speedleft, speedright
-	# synchronize after a turning the motor speed
-	if speedleft != speedright:
-		speedleft = speedright
-
-	# accelerate the RaPi car
-	speedleft = speedleft + delta_left
-	speedright = speedright + delta_right
-
-	if speedleft > 1:
-		speedleft = 1
-	if speedright > 1:
-		speedright = 1
-
-	HBridge.setMotorLeft(speedleft)
-	HBridge.setMotorRight(speedright)
+def drive(left_dir, right_dir):
+	global speed
+	HBridge.setMotorLeft(left_dir*speed)
+	HBridge.setMotorRight(right_dir*speed)
 	printscreen()
 
 while True:
@@ -73,11 +58,11 @@ while True:
 
 	# The car will drive forward when the "w" key is pressed
 	if(char == "s"):
-		drive(0.1, 0.1)
+		drive(1, 1)
 
 	# The car will reverse when the "s" key is pressed
 	if(char == "w"):
-		drive(-0.1, -0.1)
+		drive(-1, -1)
 
 	# Stop the motors
 	if(char == "q"):
