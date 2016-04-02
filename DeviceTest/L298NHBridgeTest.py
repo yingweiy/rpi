@@ -78,12 +78,12 @@ while True:
 		turn(dir=1)
 
 	if (char==','):
-		turn(dir=-1)
+		turn(dir=1)
 		time.sleep(0.1)
 		stop()
 
 	if (char=='.'):
-		turn(dir=1)
+		turn(dir=-1)
 		time.sleep(0.1)
 		stop()
 
