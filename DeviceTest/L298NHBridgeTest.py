@@ -2,7 +2,9 @@ import sys, tty, termios, os
 import L298NHBridge as HBridge
 import time
 
+
 speed = 0.5
+
 
 # Instructions for when the user has an interface
 print("w/s: direction")
@@ -26,6 +28,9 @@ def getch():
 # Infinite loop
 # The loop will not end until the user presses the
 # exit key 'X' or the program crashes...
+
+def speak(s):
+	os.system("espeak '" + s +"'")
 
 def printscreen():
 	# Print the motor speed just for interest
@@ -55,6 +60,9 @@ while True:
 	# Keyboard character retrieval method. This method will save
 	# the pressed key into the variable char
 	char = getch()
+
+	if (char=='m'):
+		speak("Muffin")
 
 	# The car will drive forward when the "w" key is pressed
 	if(char == "s"):
