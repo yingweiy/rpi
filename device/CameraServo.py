@@ -19,7 +19,7 @@ class CameraServo:
         pwm_pan.start(self.ConvertDegree2DutyCycle(90))
         pwm_tilt.start(self.ConvertDegree2DutyCycle(40))
 
-    def ConvertDegree2DutyCycle(degree):
+    def ConvertDegree2DutyCycle(self, degree):
         return float(degree) / 18.0 + 2.5
 
     def update_pan(self, angle):
