@@ -6,7 +6,7 @@ import cv2
 import numpy as np
 
 # Create the haar cascade
-cascPath = "./haarcascade_frontalface_alt.xml"
+cascPath = "./opencv/haarcascade_frontalface_alt.xml"
 faceCascade = cv2.CascadeClassifier(cascPath)
 #video_capture = cv2.VideoCapture(0)
 
