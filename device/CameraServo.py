@@ -24,7 +24,7 @@ class CameraServo:
         self.update_pan(90)
 
     def center_tilt(self):
-        self.update_tilt(40)
+        self.update_tilt(20)
 
     def update_pan(self, angle):
         if angle<self.pan_range[0] or angle>self.pan_range[1]:
