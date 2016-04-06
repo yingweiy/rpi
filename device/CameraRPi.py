@@ -13,7 +13,7 @@ class CameraRPi:
         # Make a file-like object out of the connection
         self.connection = self.client_socket.makefile('wb')
         self.camera = picamera.PiCamera()
-        self.camera.resolution = (640, 480)
+        self.camera.resolution = (320, 240)
         # Start a preview and let the camera warm up for 2 seconds
         self.camera.start_preview()
         time.sleep(2)
