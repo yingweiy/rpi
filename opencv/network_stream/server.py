@@ -4,6 +4,7 @@ import struct
 from PIL import Image
 import cv2
 import numpy as np
+import matplotlib.pyplot as plt
 
 # Create the haar cascade
 cascPath = "./haarcascade_frontalface_alt.xml"
@@ -62,11 +63,8 @@ try:
         image = Image.open(image_stream)
         print('Image is %dx%d' % image.size)
                 
-        #if ProcessImage(image)==1:
-        #    break
-        open_cv_image = np.array(image)
-        open_cv_image = open_cv_image[:, :, ::-1].copy()
-        cv2.imshow('Video', open_cv_image)
+        if ProcessImage(image)==1:
+            break
 
         image.verify()
         print('Image is verified')
