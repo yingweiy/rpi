@@ -2,22 +2,20 @@ import RPi.GPIO as GPIO
 
 class CameraServo:
     def __init__(self):
-        pin_pan=18
-        pin_tilt=19
-        pan_range=[80, 100]
-        tilt_range=[0,80]
-
+        self.pin_pan=18
+        self.pin_tilt=19
+        self.pan_range=[80, 100]
+        self.tilt_range=[0,80]
         GPIO.setmode(GPIO.BCM)
-        GPIO.setup(pin_pan, GPIO.OUT)
-        GPIO.setup(pin_tilt, GPIO.OUT)
-        pwm_pan = GPIO.PWM(pin_pan,50)
-        pwm_tilt = GPIO.PWM(pin_tilt, 50)
+        GPIO.setup(self.pin_pan, GPIO.OUT)
+        GPIO.setup(self.pin_tilt, GPIO.OUT)
+        self.pwm_pan = GPIO.PWM(self.pin_pan,50)
+        self.pwm_tilt = GPIO.PWM(self.pin_tilt, 50)
+        self.pan_degree = 90
+        self.tilt_degree = 40
 
-        pan_degree = 90
-        tilt_degree = 40
-
-        pwm_pan.start(self.ConvertDegree2DutyCycle(90))
-        pwm_tilt.start(self.ConvertDegree2DutyCycle(40))
+        self.pwm_pan.start(self.ConvertDegree2DutyCycle(90))
+        self.pwm_tilt.start(self.ConvertDegree2DutyCycle(40))
 
     def ConvertDegree2DutyCycle(self, degree):
         return float(degree) / 18.0 + 2.5
