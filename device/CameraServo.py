@@ -12,10 +12,10 @@ class CameraServo:
         self.pwm_pan = GPIO.PWM(self.pin_pan,50)
         self.pwm_tilt = GPIO.PWM(self.pin_tilt, 50)
         self.pan_degree = 90
-        self.tilt_degree = 20
+        self.tilt_degree = 10
 
         self.pwm_pan.start(self.ConvertDegree2DutyCycle(90))
-        self.pwm_tilt.start(self.ConvertDegree2DutyCycle(20))
+        self.pwm_tilt.start(self.ConvertDegree2DutyCycle(10))
 
     def ConvertDegree2DutyCycle(self, degree):
         return float(degree) / 18.0 + 2.5
@@ -24,7 +24,7 @@ class CameraServo:
         self.update_pan(90)
 
     def center_tilt(self):
-        self.update_tilt(20)
+        self.update_tilt(10)
 
     def update_pan(self, angle):
         if angle<self.pan_range[0] or angle>self.pan_range[1]:
