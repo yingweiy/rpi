@@ -1,6 +1,7 @@
 import sys, tty, termios, os
 import device.L298NHBridge as car
 import time
+import device.CameraServo as cs
 
 def getch():
 	fd = sys.stdin.fileno()
@@ -20,11 +21,15 @@ def printscreen():
     print("w/s: direction")
     print("a/d: turn")
     print("<>: steering")
+    print("j/l: pan camera")
+    print("i/k: tilt camera")
+    print("1/2/3: speed shift")
     print("q: stops the motors")
+    print("m: speak muffin")
     print("x: exit")
 
 def take_command_map():
-    global live, car, speed
+    global live, speed
     char = getch()
 
     if (char == 'm'):
@@ -70,6 +75,18 @@ def take_command_map():
     if (char == '3'):
         speed = 1.0
 
+    if (char == 'j'):
+        neck.look_left()
+
+    if (char == 'l'):
+        neck.look_right()
+
+    if (char == 'i'):
+        neck.look_up()
+
+    if (char == 'k'):
+        neck.look_down()
+
     # The "x" key will break the loop and exit the program
     if (char == "x"):
         car.stop()
@@ -91,6 +108,7 @@ def action():
 
 printscreen()
 live=True
+neck = cs.CameraServo()
 while live:
     perception()
     process()
