@@ -15,7 +15,7 @@ def getch():
 	return ch
 
 def speak(s):
-	os.system("espeak '" + s +"'")
+	os.system("espeak -s 100 '" + s +"'")
 
 def printscreen():
     os.system('clear')
