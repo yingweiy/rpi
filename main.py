@@ -2,7 +2,7 @@ import sys, tty, termios, os
 import device.L298NHBridge as car
 import time
 import device.CameraServo as cs
-import device.network_stream.CameraRPi as cam
+import opencv.network_stream.CameraRPi as cam
 
 def getch():
 	fd = sys.stdin.fileno()
