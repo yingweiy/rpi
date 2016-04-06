@@ -22,7 +22,6 @@ class CameraServo:
 
     def update_pan(self, angle):
         if angle<self.pan_range[0] or angle>self.pan_range[1]:
-            print('Error: out of pan angle boundary.', self.pan_degree)
             return
         self.pan_degree = angle
         self.pwm_pan.ChangeDutyCycle(self.ConvertDegree2DutyCycle(angle))
@@ -30,7 +29,6 @@ class CameraServo:
 
     def update_tilt(self, angle):
         if angle < self.tilt_range[0] or angle > self.tilt_range[1]:
-            print('Error: out of tilt angle boundary.', self.tilt_degree)
             return
         self.tilt_degree = angle
         self.pwm_tilt.ChangeDutyCycle(self.ConvertDegree2DutyCycle(angle))
@@ -39,14 +37,14 @@ class CameraServo:
         self.pwm_pan.stop()
         self.pwm_tilt.stop()
 
-    def look_left(self):
+    def look_right(self):
         self.update_pan(self.pan_degree - 5)
 
-    def look_right(self):
+    def look_left(self):
         self.update_pan(self.pan_degree + 5)
 
-    def look_up(self):
+    def look_down(self):
         self.update_tilt(self.tilt_degree - 1)
 
-    def look_down(self):
+    def look_up(self):
         self.update_tilt(self.tilt_degree + 1)
