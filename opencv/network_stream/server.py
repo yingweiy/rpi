@@ -12,12 +12,10 @@ video_capture = cv2.VideoCapture(0)
 
 
 def ProcessImage(image):
-        open_cv_image = np.array(image) 
-        print open_cv_image.shape
+        open_cv_image = np.array(image)
         # Convert RGB to BGR    
         open_cv_image = open_cv_image[:, :, ::-1].copy() 
         
-
         gray = cv2.cvtColor(open_cv_image, cv2.COLOR_BGR2GRAY)
         faces = faceCascade.detectMultiScale(
             gray,
@@ -35,8 +33,6 @@ def ProcessImage(image):
 
         # Display the resulting frame
         cv2.imshow('Video', open_cv_image)
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            return 1
 
         return 0
 
@@ -68,7 +64,10 @@ try:
                 
         #if ProcessImage(image)==1:
         #    break
-        
+        open_cv_image = np.array(image)
+        open_cv_image = open_cv_image[:, :, ::-1].copy()
+        cv2.imshow('Video', open_cv_image)
+
         image.verify()
         print('Image is verified')
         
