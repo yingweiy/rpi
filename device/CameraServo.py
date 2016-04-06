@@ -46,7 +46,7 @@ class CameraServo:
         self.update_pan(self.pan_degree + 5)
 
     def look_up(self):
-        self.update_pan(self.tilt_degree - 1)
+        self.update_tilt(self.tilt_degree - 1)
 
     def look_down(self):
-        self.update_pan(self.tilt_degree + 1)
+        self.update_tilt(self.tilt_degree + 1)
