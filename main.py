@@ -23,6 +23,7 @@ def printscreen():
     print("a/d: turn")
     print("<>: steering")
     print("j/l: pan camera")
+    print("c: center camera")
     print("i/k: tilt camera")
     print("1/2/3: speed shift")
     print("q: stops the motors")
@@ -87,6 +88,10 @@ def take_command_map():
 
     if (char == 'k'):
         neck.look_down()
+
+    if (char == 'c'):
+        neck.center_pan()
+        neck.center_tilt()
 
     # The "x" key will break the loop and exit the program
     if (char == "x"):

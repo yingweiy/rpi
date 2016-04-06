@@ -20,6 +20,12 @@ class CameraServo:
     def ConvertDegree2DutyCycle(self, degree):
         return float(degree) / 18.0 + 2.5
 
+    def center_pan(self):
+        self.update_pan(90)
+
+    def center_tilt(self):
+        self.update_tilt(40)
+
     def update_pan(self, angle):
         if angle<self.pan_range[0] or angle>self.pan_range[1]:
             return

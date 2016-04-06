@@ -66,8 +66,8 @@ try:
         image = Image.open(image_stream)
         print('Image is %dx%d' % image.size)
                 
-        if ProcessImage(image)==1:
-            break
+        #if ProcessImage(image)==1:
+        #    break
         
         image.verify()
         print('Image is verified')
