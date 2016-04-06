@@ -112,9 +112,15 @@ live=True
 neck = cs.CameraServo()
 eye = cam.CameraRPi()
 
-while live:
+for foo in eye.camera.capture_continuous(eye.stream, 'jpeg'):
+    if not live:
+        break
+
     perception()
     process()
     decision()
     action()
+
+
+
 
