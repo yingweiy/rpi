@@ -123,7 +123,7 @@ if len(ip)<3:
     ip = '192.168.1.24'
 eye = cam.CameraRPi(server_ip=ip)
 
-for foo in eye.camera.capture_continuous(eye.stream, 'bmp'):
+for foo in eye.camera.capture_continuous(eye.stream, 'jpeg'):
     if not live:
         break
 
