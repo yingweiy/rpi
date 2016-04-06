@@ -37,6 +37,9 @@ def take_command_map():
     if (char == 'm'):
         speak("Muffin")
 
+    if (char == 'h'):
+        speak("Hello")
+
     # The car will drive forward when the "w" key is pressed
     if (char == "s"):
         car.drive(1, 1)

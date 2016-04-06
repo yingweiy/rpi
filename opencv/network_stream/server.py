@@ -12,9 +12,9 @@ faceCascade = cv2.CascadeClassifier(cascPath)
 
 def ProcessImage(image):
         open_cv_image = np.array(image)[:, :, ::-1].copy()
-
         # Display the resulting frame
         cv2.imshow('Video', open_cv_image)
+        cv2.waitKey(1)
         ApplyFaceDetection = False
 
         if ApplyFaceDetection:
