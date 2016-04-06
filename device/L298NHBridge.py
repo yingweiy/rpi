@@ -161,3 +161,14 @@ def exit():
 	io.output(rightmotor_in1_pin, False)
 	io.output(rightmotor_in2_pin, False)
 	io.cleanup()
+
+def turn(dir, speed=1.0):
+    drive(-dir*speed, dir*speed)
+
+def stop():
+	setMotorLeft(0)
+	setMotorRight(0)
+
+def drive(left_dir, right_dir, speed=1.0):
+	setMotorLeft(left_dir*speed)
+	setMotorRight(right_dir*speed)
