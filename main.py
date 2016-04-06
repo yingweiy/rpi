@@ -2,6 +2,7 @@ import sys, tty, termios, os
 import device.L298NHBridge as car
 import time
 import device.CameraServo as cs
+import device.network_stream.CameraRPi as cam
 
 def getch():
 	fd = sys.stdin.fileno()
@@ -95,7 +96,7 @@ def take_command_map():
         live = False
 
 def perception():
-    pass
+    eye.capture()
 
 def process():
     pass
@@ -109,6 +110,8 @@ def action():
 printscreen()
 live=True
 neck = cs.CameraServo()
+eye = cam.CameraRPi()
+
 while live:
     perception()
     process()
