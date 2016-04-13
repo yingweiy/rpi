@@ -8,6 +8,6 @@ GPIO.setup(IRPin, GPIO.IN)
 while True:
     d = GPIO.input(IRPin)
     print(d)
-    time.sleep(0.5)
+    time.sleep(0.1)
 
 
