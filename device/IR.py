@@ -7,6 +7,7 @@ GPIO.setup(IRPin, GPIO.IN)
 
 while True:
     d = GPIO.input(IRPin)
+    print(d)
     if d==0:
         print('Obstacle detected')
         time.sleep(0.1)
