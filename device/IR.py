@@ -2,12 +2,12 @@ import RPi.GPIO as GPIO
 import time
 
 IRPin = 13
-GPIO.setmode(GPIO.BOARD)
+GPIO.setmode(GPIO.BCM)
 GPIO.setup(IRPin, GPIO.IN)
 
 while True:
     d = GPIO.input(IRPin)
     print(d)
-    if d==0:
-        print('Obstacle detected')
-        time.sleep(0.1)
+    time.sleep(0.5)
+
+
