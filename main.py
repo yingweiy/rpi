@@ -117,7 +117,7 @@ def action():
 printscreen()
 live=True
 neck = cs.CameraServo()
-ip=input('Server IP: (default to 192.168.1.24)')
+ip=' ' #input('Server IP: (default to 192.168.1.24)')
 if len(ip)<3:
     ip = '192.168.1.24'
 
