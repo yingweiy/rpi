@@ -62,12 +62,12 @@ def take_command_map():
 
     if (char == ','):
         car.turn(dir=1)
-        time.sleep(0.1)
+        time.sleep(0.2)
         car.stop()
 
     if (char == '.'):
         car.turn(dir=-1)
-        time.sleep(0.1)
+        time.sleep(0.2)
         car.stop()
 
     if (char == '1'):
