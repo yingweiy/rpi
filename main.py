@@ -2,7 +2,6 @@ import sys, tty, termios, os
 import device.L298NHBridge as car
 import time
 import device.CameraServo as cs
-import device.CameraRPi as cam
 
 def getch():
 	fd = sys.stdin.fileno()
@@ -104,7 +103,7 @@ def take_command_map():
         live = False
 
 def perception():
-    eye.capture()
+    pass
 
 def process():
     pass
@@ -121,12 +120,10 @@ neck = cs.CameraServo()
 ip=input('Server IP: (default to 192.168.1.24)')
 if len(ip)<3:
     ip = '192.168.1.24'
-eye = cam.CameraRPi(server_ip=ip)
 
-for foo in eye.camera.capture_continuous(eye.stream, 'jpeg'):
-    if not live:
-        break
+os.system('raspivid -o - -t 0 -w 800 -h 600 -fps 24 | nc ' + ip + ' 2222')
 
+while live:
     perception()
     process()
     decision()
