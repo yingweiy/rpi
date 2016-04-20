@@ -118,7 +118,7 @@ printscreen()
 live=True
 neck = cs.CameraServo()
 last_ip=input('Server IP 192.168.1.?? (default to Mac 27@24)')
-if len(ip)<1:
+if len(last_ip)<1:
     last_ip = '192.168.1.24'
 ip = '192.168.1' + last_ip
 
