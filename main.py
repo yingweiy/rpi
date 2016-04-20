@@ -100,7 +100,6 @@ def take_command_map():
     if (char == "x"):
         car.stop()
         car.exit()
-        print("Program Ended")
         live = False
 
 def perception():
@@ -117,8 +116,10 @@ def action():
 
 
 def cleanup():
+    print('Cleaning up...')
     cam_process.terminate()
     nc_process.terminate()
+    print("Program Ended")
 
 printscreen()
 live=True
