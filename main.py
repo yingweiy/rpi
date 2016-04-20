@@ -2,6 +2,7 @@ import sys, tty, termios, os
 import device.L298NHBridge as car
 import time
 import device.CameraServo as cs
+import subprocess
 
 def getch():
 	fd = sys.stdin.fileno()
@@ -114,6 +115,11 @@ def decision():
 def action():
     take_command_map()
 
+
+def cleanup():
+    cam_process.terminate()
+    nc_process.terminate()
+
 printscreen()
 live=True
 neck = cs.CameraServo()
@@ -124,14 +130,16 @@ ip = '192.168.1.' + str(last_ip)
 print('Server IP:', ip)
 
 # os.system('raspivid -o - -t 0 -w 800 -h 600 -fps 24 | nc ' + ip + ' 2222')
-os.system('raspivid -o - -t 0 -w 800 -h 600 -fps 24 > ~/cam_pipe &')
-os.system('nc ' + ip + ' 2222 < ~/cam_pipe &')
+cam_process = subprocess.Popen('raspivid -o - -t 0 -w 800 -h 600 -fps 24 > ~/cam_pipe &', shell=True)
+nc_process = subprocess.Popen('nc ' + ip + ' 2222 < ~/cam_pipe &', shell=True)
 
 while live:
     perception()
     process()
     decision()
     action()
+
+cleanup()
 
 
 
