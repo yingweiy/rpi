@@ -119,8 +119,9 @@ live=True
 neck = cs.CameraServo()
 last_ip=input('Server IP 192.168.1.?? (default to Mac 27@24)')
 if len(last_ip)<1:
-    last_ip = '192.168.1.24'
+    last_ip = '24'
 ip = '192.168.1' + str(last_ip)
+print('Server IP:', ip)
 
 # os.system('raspivid -o - -t 0 -w 800 -h 600 -fps 24 | nc ' + ip + ' 2222')
 os.system('raspivid -o - -t 0 -w 800 -h 600 -fps 24 > ~/cam_pipe &')
