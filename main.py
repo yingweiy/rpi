@@ -117,6 +117,7 @@ def action():
 
 def cleanup():
     print('Cleaning up...')
+    print('kill -9 ' + str(cam_process.pid))
     os.system('kill -9 '+str(cam_process.pid))
     print("Program Ended")
 
