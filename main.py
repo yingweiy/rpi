@@ -121,9 +121,9 @@ ip=input('Server IP: (default to 192.168.1.24)')
 if len(ip)<3:
     ip = '192.168.1.24'
 
-os.system('raspivid -o - -t 0 -w 800 -h 600 -fps 24 | nc ' + ip + ' 2222')
-# os.system('raspivid -o - -t 0 -w 800 -h 600 -fps 24 > ~/cam_pipe &')
-# os.system('nc ' + ip + ' 2222 & < ~/cam_pipe ')
+# os.system('raspivid -o - -t 0 -w 800 -h 600 -fps 24 | nc ' + ip + ' 2222')
+os.system('raspivid -o - -t 0 -w 800 -h 600 -fps 24 > ~/cam_pipe &')
+os.system('nc ' + ip + ' 2222 < ~/cam_pipe &')
 
 while live:
     perception()
