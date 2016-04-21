@@ -113,7 +113,9 @@ def avoidObstacle():
     car.drive(-1, -1)
 
 def perception():
-    if IR.OnHit():
+    OnHit = IR.OnHit()
+    print(OnHit)
+    if OnHit:
         avoidObstacle()
 
 def process():
