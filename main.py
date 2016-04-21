@@ -4,6 +4,7 @@ import time
 import device.CameraServo as cs
 import subprocess
 import device.IR as IR
+import thread
 
 def getch():
 	fd = sys.stdin.fileno()
@@ -14,6 +15,12 @@ def getch():
 	finally:
 		termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
 	return ch
+
+char = None
+
+def keypress():
+    global char
+    char = getch()
 
 def speak(s):
 	os.system("espeak -s 100 '" + s +"'")
@@ -32,8 +39,8 @@ def printscreen():
     print("x: exit")
 
 def take_command_map():
-    global live, speed, neck
-    char = getch()
+    global live, speed, neck, char
+    #char = getch()
 
     if (char == 'm'):
         speak("Muffin")
@@ -132,6 +139,7 @@ def action():
     pass
 
 def init():
+    thread.start_new_thread(keypress, ())
     IR.init()
 
 def cleanup():
