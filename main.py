@@ -3,6 +3,7 @@ import device.L298NHBridge as car
 import time
 import device.CameraServo as cs
 import subprocess
+import device.IR as IR
 
 def getch():
 	fd = sys.stdin.fileno()
@@ -31,7 +32,7 @@ def printscreen():
     print("x: exit")
 
 def take_command_map():
-    global live, speed
+    global live, speed, neck
     char = getch()
 
     if (char == 'm'):
@@ -40,11 +41,11 @@ def take_command_map():
     if (char == 'h'):
         speak("Hello")
 
-    # The car will drive forward when the "w" key is pressed
+    # The car will drive reverse when the "s" key is pressed
     if (char == "s"):
         car.drive(1, 1)
 
-    # The car will reverse when the "s" key is pressed
+    # The car will forward when the "w" key is pressed
     if (char == "w"):
         car.drive(-1, -1)
 
@@ -102,8 +103,17 @@ def take_command_map():
         car.exit()
         live = False
 
+
+def avoidObstacle():
+    car.drive(1, 1)
+    time.sleep(0.5)
+    car.turn(dir=-1)
+    time.sleep(0.2)
+    car.drive(-1, -1)
+
 def perception():
-    pass
+    if IR.OnHit():
+        avoidObstacle()
 
 def process():
     pass
@@ -114,33 +124,44 @@ def decision():
 def action():
     take_command_map()
 
+def init():
+    IR.init()
 
 def cleanup():
+    global cam_process
     print('Cleaning up...')
     print('kill -9 ' + str(cam_process.pid))
     os.system('kill -9 '+str(cam_process.pid))
     print("Program Ended")
 
-printscreen()
-live=True
-neck = cs.CameraServo()
-last_ip=input('Server IP 192.168.1.?? (default to Mac 27@24)')
-if len(last_ip)<1:
-    last_ip = '24'
-ip = '192.168.1.' + str(last_ip)
-print('Server IP:', ip)
+def main():
+    global neck, cam_process, nc_process
+    init()
+    printscreen()
+    live=True
+    neck = cs.CameraServo()
+    last_ip=input('Server IP 192.168.1.?? (default to Mac 27@24)')
+    if len(last_ip)<1:
+        last_ip = '24'
+    ip = '192.168.1.' + str(last_ip)
+    print('Server IP:', ip)
 
-# os.system('raspivid -o - -t 0 -w 800 -h 600 -fps 24 | nc ' + ip + ' 2222')
-cam_process = subprocess.Popen('raspivid -o - -t 0 -w 800 -h 600 -fps 24 > ~/cam_pipe &', shell=True)
-nc_process = subprocess.Popen('nc ' + ip + ' 2222 < ~/cam_pipe &', shell=True)
+    # os.system('raspivid -o - -t 0 -w 800 -h 600 -fps 24 | nc ' + ip + ' 2222')
+    cam_process = subprocess.Popen('raspivid -o - -t 0 -w 800 -h 600 -fps 24 > ~/cam_pipe &', shell=True)
+    nc_process = subprocess.Popen('nc ' + ip + ' 2222 < ~/cam_pipe &', shell=True)
 
-while live:
-    perception()
-    process()
-    decision()
-    action()
+    while live:
+        perception()
+        process()
+        decision()
+        action()
 
-cleanup()
+    cleanup()
+
+
+if __name__ == "__main__":
+    main()
+
 
 
 
