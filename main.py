@@ -125,7 +125,7 @@ def decision():
     pass
 
 def action():
-    #take_command_map()
+    take_command_map()
     pass
 
 def init():
