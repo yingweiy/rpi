@@ -40,9 +40,8 @@ def printscreen():
 
 def take_command_map():
     global live, speed, neck, char
-    #char = getch()
-    if (char== ''):
-        return
+
+    print(char)
 
     if (char == 'm'):
         speak("Muffin")
