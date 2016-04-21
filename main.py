@@ -4,7 +4,7 @@ import time
 import device.CameraServo as cs
 import subprocess
 import device.IR as IR
-import thread
+import threading
 
 def getch():
 	fd = sys.stdin.fileno()
@@ -139,7 +139,7 @@ def action():
     pass
 
 def init():
-    thread.start_new_thread(keypress, ())
+    threading.Thread(target=keypress).start()
     IR.init()
 
 def cleanup():
