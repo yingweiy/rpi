@@ -93,6 +93,9 @@ def take_command_map():
     if (char == 'k'):
         neck.look_down()
 
+    if (char == 'b'):
+        avoidObstacle()
+
     if (char == 'c'):
         neck.center_pan()
         neck.center_tilt()
