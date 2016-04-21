@@ -42,10 +42,11 @@ def printscreen():
 def take_command_map():
     global live, speed, neck, command_queue
 
-    if len(command_queue)>0:
-        char=command_queue.pop(0)
-    else:
-        return
+    char = getch()
+    #if len(command_queue)>0:
+    #    char=command_queue.pop(0)
+    #else:
+    #    return
 
     if (char == 'm'):
         speak("Muffin")
@@ -143,8 +144,7 @@ def action():
     pass
 
 def init():
-
-    threading.Thread(target=keypress).start()
+    #threading.Thread(target=keypress).start()
     IR.init()
 
 def cleanup():
