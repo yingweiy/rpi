@@ -41,6 +41,8 @@ def printscreen():
 def take_command_map():
     global live, speed, neck, char
     #char = getch()
+    if (char== ''):
+        return
 
     if (char == 'm'):
         speak("Muffin")
@@ -124,7 +126,6 @@ def avoidObstacle():
 
 def perception():
     OnHit = IR.OnHit()
-    print(OnHit)
     if OnHit:
         avoidObstacle()
 
