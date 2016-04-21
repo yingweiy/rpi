@@ -105,6 +105,7 @@ def take_command_map():
 
 
 def avoidObstacle():
+    print('Obstacle detected. Avoidance process started...')
     car.drive(1, 1)
     time.sleep(0.5)
     car.turn(dir=-1)
