@@ -21,7 +21,7 @@ command_queue = []
 def keypress():
     global command_queue
     char = getch()
-    if len(char)>1:
+    if len(char)>0:
         command_queue.append(char)
 
 def speak(s):
