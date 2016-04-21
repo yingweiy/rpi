@@ -46,6 +46,8 @@ def take_command_map():
 
     if len(command_queue)>0:
         char=command_queue.pop(0)
+    else:
+        return
 
     if (char == 'm'):
         speak("Muffin")
