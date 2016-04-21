@@ -16,8 +16,6 @@ def getch():
 		termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
 	return ch
 
-command_queue = []
-
 def keypress():
     global command_queue
     char = getch()
@@ -145,6 +143,7 @@ def action():
     pass
 
 def init():
+
     threading.Thread(target=keypress).start()
     IR.init()
 
@@ -156,7 +155,8 @@ def cleanup():
     print("Program Ended")
 
 def main():
-    global neck, cam_process, nc_process
+    global neck, cam_process, nc_process, command_queue
+    command_queue = []
     init()
     printscreen()
     live=True
