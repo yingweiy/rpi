@@ -16,11 +16,13 @@ def getch():
 		termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
 	return ch
 
-char = None
+command_queue = []
 
 def keypress():
-    global char
+    global command_queue
     char = getch()
+    if len(char)>1:
+        command_queue.append(char)
 
 def speak(s):
 	os.system("espeak -s 100 '" + s +"'")
@@ -39,9 +41,10 @@ def printscreen():
     print("x: exit")
 
 def take_command_map():
-    global live, speed, neck, char
+    global live, speed, neck, command_queue
 
-    print(char)
+    if len(command_queue)>0:
+        char=command_queue.pop(0)
 
     if (char == 'm'):
         speak("Muffin")
