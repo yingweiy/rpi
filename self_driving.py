@@ -67,7 +67,8 @@ def action():
     cmd_id = random.randint(1,7)
     take_command_map(cmd_id)
 
-def init():    
+def init():
+    global live, speed, neck
     IR.init()
     neck.center_pan()
     neck.center_tilt()
