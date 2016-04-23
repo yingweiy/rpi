@@ -83,15 +83,16 @@ def cleanup():
 def main():
     global neck, cam_process, nc_process, command_queue
     command_queue = []
-    init()    
     live=True
     neck = cs.CameraServo()
+
     last_ip=input('Server IP 192.168.1.?? (default to Mac 27@24)')
     if len(last_ip)<1:
         last_ip = '24'
     ip = '192.168.1.' + str(last_ip)
     print('Server IP:', ip)
 
+    init()
     # os.system('raspivid -o - -t 0 -w 800 -h 600 -fps 24 | nc ' + ip + ' 2222')
     cam_process = subprocess.Popen('raspivid -o - -t 0 -w 800 -h 600 -fps 24 > ~/cam_pipe &', shell=True)
     nc_process = subprocess.Popen('nc ' + ip + ' 2222 < ~/cam_pipe &', shell=True)
