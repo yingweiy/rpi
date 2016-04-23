@@ -72,6 +72,7 @@ def init():
     IR.init()
     neck.center_pan()
     neck.center_tilt()
+    neck.exit()
 
 def cleanup():
     global cam_process
