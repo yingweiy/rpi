@@ -14,7 +14,7 @@ def take_command_map(cmd_id):
     
     # The car will drive reverse when the "s" key is pressed
     if (cmd_id == 1):
-        car.drive(1, 1)
+        car.drive(-1, -1)
 
     # The car will forward when the "w" key is pressed
     if (cmd_id == 2):
