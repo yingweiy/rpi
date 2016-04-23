@@ -10,7 +10,7 @@ def speak(s):
 	os.system("espeak -s 100 '" + s +"'")
 
 def take_command_map(cmd_id):
-    global live, speed, neck
+    global live
     
     # The car will drive reverse when the "s" key is pressed
     if (cmd_id >0 and cmd_id<=3):
@@ -68,14 +68,15 @@ def action():
     take_command_map(cmd_id)
 
 def init():
-    global live, speed, neck
+    global neck
     IR.init()
     neck.center_pan()
     neck.center_tilt()
     neck.exit()
 
 def cleanup():
-    global cam_process
+    global cam_process, neck
+    neck.exit()
     print('Cleaning up...')
     print('kill -9 ' + str(cam_process.pid))
     os.system('kill -9 '+str(cam_process.pid))
