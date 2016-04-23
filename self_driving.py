@@ -4,121 +4,61 @@ import time
 import device.CameraServo as cs
 import subprocess
 import device.IR as IR
-import threading
-
-def getch():
-	fd = sys.stdin.fileno()
-	old_settings = termios.tcgetattr(fd)
-	try:
-		tty.setraw(sys.stdin.fileno())
-		ch = sys.stdin.read(1)
-	finally:
-		termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
-	return ch
-
-def keypress():
-    global command_queue
-    char = getch()
-    if len(char)>0:
-        print('New Char detected:', char)
-        command_queue.append(char)
+import random
 
 def speak(s):
 	os.system("espeak -s 100 '" + s +"'")
 
-def printscreen():
-    os.system('clear')
-    print("w/s: direction")
-    print("a/d: turn")
-    print("<>: steering")
-    print("j/l: pan camera")
-    print("c: center camera")
-    print("i/k: tilt camera")
-    print("1/2/3: speed shift")
-    print("q: stops the motors")
-    print("m: speak muffin")
-    print("x: exit")
-
-def take_command_map():
-    global live, speed, neck, command_queue
-
-    char = getch()
-    #if len(command_queue)>0:
-    #    char=command_queue.pop(0)
-    #else:
-    #    return
-
-    if (char == 'm'):
-        speak("Muffin")
-
-    if (char == 'h'):
-        speak("Hello")
-
+def take_command_map(cmd_id):
+    global live, speed, neck
+    
     # The car will drive reverse when the "s" key is pressed
-    if (char == "s"):
+    if (cmd_id == 1):
         car.drive(1, 1)
 
     # The car will forward when the "w" key is pressed
-    if (char == "w"):
+    if (cmd_id == 2):
         car.drive(-1, -1)
 
     # Stop the motors
-    if (char == "q"):
+    if (cmd_id == 3):
         car.stop()
-        printscreen()
 
     # The "d" key will toggle the steering right
-    if (char == "d"):
+    if (cmd_id == 4):
         car.turn(dir=-1)
 
     # The "a" key will toggle the steering left
-    if (char == "a"):
+    if (cmd_id == 5):
         car.turn(dir=1)
 
-    if (char == ','):
+    if (cmd_id == 6):
         car.turn(dir=1)
         time.sleep(0.2)
         car.stop()
 
-    if (char == '.'):
+    if (cmd_id == 7):
         car.turn(dir=-1)
         time.sleep(0.2)
         car.stop()
 
-    if (char == '1'):
-        speed = 0.1
-
-    if (char == '2'):
-        speed = 0.5
-
-    if (char == '3'):
-        speed = 1.0
-
-    if (char == 'j'):
+    if (cmd_id == 8):
         neck.look_left()
 
-    if (char == 'l'):
+    if (cmd_id == 9):
         neck.look_right()
 
-    if (char == 'i'):
+    if (cmd_id == 10):
         neck.look_up()
 
-    if (char == 'k'):
+    if (cmd_id == 11):
         neck.look_down()
 
-    if (char == 'b'):
-        avoidObstacle()
-
-    if (char == 'c'):
-        neck.center_pan()
-        neck.center_tilt()
-
     # The "x" key will break the loop and exit the program
-    if (char == "x"):
+    if (cmd_id == 0):
         car.stop()
         car.exit()
         live = False
-
 
 def avoidObstacle():
     print('Obstacle detected. Avoidance process started...')
@@ -140,11 +80,11 @@ def decision():
     pass
 
 def action():
-    take_command_map()
-    pass
+    cmd_id = random.randint(1,11)
+    take_command_map(cmd_id)
+    time.sleep(0.5)
 
-def init():
-    #threading.Thread(target=keypress).start()
+def init():    
     IR.init()
 
 def cleanup():
@@ -157,8 +97,7 @@ def cleanup():
 def main():
     global neck, cam_process, nc_process, command_queue
     command_queue = []
-    init()
-    printscreen()
+    init()    
     live=True
     neck = cs.CameraServo()
     last_ip=input('Server IP 192.168.1.?? (default to Mac 27@24)')
