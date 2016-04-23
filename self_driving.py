@@ -37,18 +37,6 @@ def take_command_map(cmd_id):
         time.sleep(random.random()*0.5)
         car.stop()
 
-    if (cmd_id == 8):
-        neck.look_left()
-
-    if (cmd_id == 9):
-        neck.look_right()
-
-    if (cmd_id == 10):
-        neck.look_up()
-
-    if (cmd_id == 11):
-        neck.look_down()
-
     # The "x" key will break the loop and exit the program
     if (cmd_id == 0):
         car.stop()
@@ -76,11 +64,13 @@ def decision():
     pass
 
 def action():
-    cmd_id = random.randint(1,11)
+    cmd_id = random.randint(1,7)
     take_command_map(cmd_id)
 
 def init():    
     IR.init()
+    neck.center_pan()
+    neck.center_tilt()
 
 def cleanup():
     global cam_process
