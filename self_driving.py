@@ -13,33 +13,28 @@ def take_command_map(cmd_id):
     global live, speed, neck
     
     # The car will drive reverse when the "s" key is pressed
-    if (cmd_id == 1):
+    if (cmd_id >0 and cmd_id<=3):
         car.drive(-1, -1)
-
-    # The car will forward when the "w" key is pressed
-    if (cmd_id == 2):
-        car.drive(-1, -1)
-
-    # Stop the motors
-    if (cmd_id == 3):
-        car.stop()
+        time.sleep(random.random()+0.5)
 
     # The "d" key will toggle the steering right
     if (cmd_id == 4):
         car.turn(dir=-1)
+        time.sleep(random.random())
 
     # The "a" key will toggle the steering left
     if (cmd_id == 5):
         car.turn(dir=1)
+        time.sleep(random.random())
 
     if (cmd_id == 6):
         car.turn(dir=1)
-        time.sleep(0.2)
+        time.sleep(random.random()*0.5)
         car.stop()
 
     if (cmd_id == 7):
         car.turn(dir=-1)
-        time.sleep(0.2)
+        time.sleep(random.random()*0.5)
         car.stop()
 
     if (cmd_id == 8):
@@ -67,6 +62,7 @@ def avoidObstacle():
     car.turn(dir=-1)
     time.sleep(0.2)
     car.drive(-1, -1)
+    time.sleep(random.random()*2+0.5)
 
 def perception():
     OnHit = IR.OnHit()
@@ -82,7 +78,6 @@ def decision():
 def action():
     cmd_id = random.randint(1,11)
     take_command_map(cmd_id)
-    time.sleep(0.5)
 
 def init():    
     IR.init()
