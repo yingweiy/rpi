@@ -18,7 +18,7 @@ class CameraServo:  #the old one on board
         self.tilt_degree = 10
 
     def setChannelDegree(self, ch, degree):
-        self.pwm.set_pwm(ch, 0, degree*1.25+375)
+        self.pwm.set_pwm(ch, 0, int(degree*1.25+375))
 
     def center_pan(self):
         self.update_pan(0)
