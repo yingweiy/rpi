@@ -124,6 +124,9 @@ def cleanup():
 printscreen()
 live=True
 neck = cs.CameraServo()
+neck.center_pan()
+neck.center_tilt()
+
 last_ip=input('Server IP 192.168.1.?? (default to Mac 27@24)')
 if len(last_ip)<1:
     last_ip = '24'
