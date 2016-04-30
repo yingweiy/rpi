@@ -1,6 +1,61 @@
 import RPi.GPIO as GPIO
+import time
+import Adafruit_PCA9685
 
-class CameraServo:
+class CameraServo:  #the old one on board
+    def __init__(self):
+        self.ch_pan = 0
+        self.ch_tilt = 1
+        self.pan_range=[60, 120]
+        self.tilt_range=[-90, 90]
+        self.pwm = Adafruit_PCA9685.PCA9685()
+        self.pwm.set_pwm_freq(60)
+
+        self.pwm.set_pwm(self.ch_pan, 0, 375)
+        self.pwm.set_pwm(self.ch_tilt, 0, 375)
+
+        self.pan_degree = 90
+        self.tilt_degree = 10
+
+    def setChannelDegree(self, ch, degree):
+        self.pwm.set_pwm(ch, 0, degree*1.25+375)
+
+    def center_pan(self):
+        self.update_pan(0)
+
+    def center_tilt(self):
+        self.update_tilt(0)
+
+    def update_pan(self, angle):
+        if angle<self.pan_range[0] or angle>self.pan_range[1]:
+            return
+        self.pan_degree = angle
+        self.setChannelDegree(self.ch_pan, angle)
+
+    def update_tilt(self, angle):
+        if angle < self.tilt_range[0] or angle > self.tilt_range[1]:
+            return
+        self.tilt_degree = angle
+        self.setChannelDegree(self.ch_tilt, angle)
+
+    def exit(self):
+        pass
+
+    def look_right(self):
+        self.update_pan(self.pan_degree - 5)
+
+    def look_left(self):
+        self.update_pan(self.pan_degree + 5)
+
+    def look_down(self):
+        self.update_tilt(self.tilt_degree - 5)
+
+    def look_up(self):
+        self.update_tilt(self.tilt_degree + 5)
+
+
+
+class CameraServo0:  #the old one on board
     def __init__(self):
         self.pin_pan=18
         self.pin_tilt=19
