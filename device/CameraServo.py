@@ -6,18 +6,19 @@ class CameraServo:  #the old one on board
     def __init__(self):
         self.ch_pan = 0
         self.ch_tilt = 1
-        self.pan_range=[60, 120]
-        self.tilt_range=[-90, 90]
+        self.pan_range=[-60, 60]
+        self.tilt_range=[0, 180]
         self.pwm = Adafruit_PCA9685.PCA9685()
         self.pwm.set_pwm_freq(60)
 
         self.pwm.set_pwm(self.ch_pan, 0, 375)
         self.pwm.set_pwm(self.ch_tilt, 0, 375)
 
-        self.pan_degree = 90
+        self.pan_degree = 0
         self.tilt_degree = 10
 
     def setChannelDegree(self, ch, degree):
+        print(ch, degree)
         self.pwm.set_pwm(ch, 0, int(degree*1.25+375))
 
     def center_pan(self):
