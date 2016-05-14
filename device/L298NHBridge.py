@@ -164,7 +164,7 @@ def exit():
 	io.cleanup()
 
 def turn(dir, speed=1.0):
-	drive(speed, speed)
+	drive(-speed, -speed)
 	time.sleep(0.1)
 	drive(-dir*speed, dir*speed)
 
