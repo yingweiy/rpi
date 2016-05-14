@@ -3,6 +3,7 @@ import device.L298NHBridge as car
 import time
 import device.CameraServo as cs
 import subprocess
+import device.Relay as relay
 
 def getch():
 	fd = sys.stdin.fileno()
@@ -31,7 +32,7 @@ def printscreen():
     print("x: exit")
 
 def take_command_map():
-    global live, speed
+    global live, speed, neck, car, switch
     char = getch()
 
     if (char == 'm'):
@@ -100,6 +101,7 @@ def take_command_map():
     if (char == "x"):
         car.stop()
         car.exit()
+        switch.off()
         live = False
 
 def perception():
@@ -136,6 +138,9 @@ print('Server IP:', ip)
 # os.system('raspivid -o - -t 0 -w 800 -h 600 -fps 24 | nc ' + ip + ' 2222')
 cam_process = subprocess.Popen('raspivid -o - -t 0 -w 800 -h 600 -fps 24 > ~/cam_pipe &', shell=True)
 nc_process = subprocess.Popen('nc ' + ip + ' 2222 < ~/cam_pipe &', shell=True)
+
+switch = relay.Relay()
+switch.on()
 
 while live:
     perception()
