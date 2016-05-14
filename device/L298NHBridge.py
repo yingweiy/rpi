@@ -163,7 +163,11 @@ def exit():
 	io.cleanup()
 
 def turn(dir, speed=1.0):
-    drive(-dir*speed, dir*speed)
+	c=0.1
+	if dir<0:
+		drive(speed*c, speed)
+	else:
+		drive(speed, speed*c)
 
 def stop():
 	setMotorLeft(0)
