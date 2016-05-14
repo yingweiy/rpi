@@ -7,6 +7,7 @@
 
 # Import the libraries the class needs
 import RPi.GPIO as io
+import time
 io.setmode(io.BCM)
 
 # Constant values
@@ -163,11 +164,9 @@ def exit():
 	io.cleanup()
 
 def turn(dir, speed=1.0):
-	c=0.1
-	if dir<0:
-		drive(speed*c, speed)
-	else:
-		drive(speed, speed*c)
+	drive(speed, speed)
+	time.sleep(0.1)
+	drive(-dir*speed, dir*speed)
 
 def stop():
 	setMotorLeft(0)
