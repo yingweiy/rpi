@@ -1,9 +1,8 @@
 import RPi.GPIO as GPIO
 
-
 class Relay:
     def __init__(self):
-        GPIO.setmode(io.BCM)
+        GPIO.setmode(GPIO.BCM)
         self.pin = 8
         GPIO.output(self.pin, GPIO.LOW)
 
