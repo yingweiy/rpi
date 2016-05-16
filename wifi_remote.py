@@ -4,6 +4,7 @@ import time
 import device.CameraServo as cs
 import subprocess
 import device.Relay as relay
+import device.HCSR04 as sonar
 
 def getch():
 	fd = sys.stdin.fileno()
@@ -29,10 +30,11 @@ def printscreen():
     print("1/2/3: speed shift")
     print("q: stops the motors")
     print("m: speak muffin")
+    print("n: distance measure")
     print("x: exit")
 
 def take_command_map():
-    global live, speed, neck, car, switch
+    global live, speed, neck, car, switch, Sonar
     char = getch()
 
     if (char == 'm'):
@@ -66,9 +68,15 @@ def take_command_map():
         car.turn(dir=1)
         time.sleep(0.1)
         car.stop()
+        car.drive(1,1)
+        time.sleep(0.1)
+        car.stop()
 
     if (char == '.'):
         car.turn(dir=-1)
+        time.sleep(0.1)
+        car.stop()
+        car.drive(1, 1)
         time.sleep(0.1)
         car.stop()
 
@@ -96,6 +104,9 @@ def take_command_map():
     if (char == 'c'):
         neck.center_pan()
         neck.center_tilt()
+
+    if (char == 'n'):
+        print('Distance to front object is :', Sonar.measure(), ' cm.')
 
     # The "x" key will break the loop and exit the program
     if (char == "x"):
@@ -128,6 +139,7 @@ live=True
 neck = cs.CameraServo()
 neck.center_pan()
 neck.center_tilt()
+Sonar = sonar.HCSR()
 
 last_ip=input('Server IP 192.168.1.?? (default to Mac 27@24)')
 if len(last_ip)<1:
