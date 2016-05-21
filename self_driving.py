@@ -6,6 +6,7 @@ import subprocess
 import device.HCSR04 as sonar
 import random
 import device.Relay as relay
+import device.Button as button
 import numpy as np
 
 def speak(s):
@@ -93,9 +94,13 @@ def checkSurroundings():
     return np.array(distance)
 
 def perception():
-    global Sonar
+    global Sonar, nose
+    if nose.is_pressed():
+        print('On hit...')
+        avoidObstacle()
     distance = Sonar.measure()
     if distance<30:
+        print('Too close to a wall...')
         avoidObstacle()
 
 def process():
@@ -109,9 +114,10 @@ def action():
     take_command_map(cmd_id)
 
 def init():
-    global neck, Sonar, switch
+    global neck, Sonar, switch, nose
     switch = relay.Relay()
     switch.on()
+    nose = button.Button()
     Sonar = sonar.HCSR()
     neck.center_pan()
     neck.center_tilt()

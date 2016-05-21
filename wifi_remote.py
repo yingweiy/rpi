@@ -5,6 +5,7 @@ import device.CameraServo as cs
 import subprocess
 import device.Relay as relay
 import device.HCSR04 as sonar
+import device.Button as button
 
 def getch():
 	fd = sys.stdin.fileno()
@@ -115,11 +116,16 @@ def take_command_map():
         switch.off()
         live = False
 
-def perception():
-    pass
-
 def process():
     pass
+
+def perception():
+    if nose.is_pressed():
+       print('Oh, no~ Hit on something!')
+       car.stop()
+       time.sleep(0.5)
+       print('Go back...')
+       car.drive(1,1)
 
 def decision():
     pass
@@ -140,6 +146,7 @@ neck = cs.CameraServo()
 neck.center_pan()
 neck.center_tilt()
 Sonar = sonar.HCSR()
+nose = button.Button()
 
 last_ip=input('Server IP 192.168.1.?? (default to Mac 27@24)')
 if len(last_ip)<1:
